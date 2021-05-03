@@ -1,13 +1,12 @@
+import requests
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import requests 
-from bs4 import BeautifulSoup 
 import geopandas as gpd
 from prettytable import PrettyTable
+from bs4 import BeautifulSoup 
 
-# offical ministry of health website
-url = 'https://www.mohfw.gov.in/' 
+url = 'https://www.mohfw.gov.in/' #website to scrape
 
 # make a GET request to fetch the raw HTML content
 web_content = requests.get(url).content
