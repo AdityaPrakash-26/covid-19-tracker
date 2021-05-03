@@ -1,0 +1,7 @@
+requests
+pandas
+seaborn
+matplotlib
+geopandas
+prettytable
+bs4
