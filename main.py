@@ -8,21 +8,17 @@ from bs4 import BeautifulSoup
 
 url = 'https://www.mohfw.gov.in/' #website to scrape
 
-# make a GET request to fetch the raw HTML content
-web_content = requests.get(url).content
+web_content = requests.get(url).content # make a GET request to fetch the raw HTML
 
-# parse the html content
-soup = BeautifulSoup(web_content, "html.parser")
+soup = BeautifulSoup(web_content, "html.parser")    # parse the html content
 
-# remove any newlines and extra spaces from left and right
-extract_contents = lambda row: [x.text.replace('\n', '') for x in row] 
+extract_contents = lambda row: [x.text.replace('\n', '') for x in row] # remove any newlines and extra spaces from left and right
 
 stats = [] # initialize stats
 all_rows = soup.find_all('tr') # find all table rows 
 
 for row in all_rows: 
-    stat = extract_contents(row.find_all('td')) # find all data cells  
-    # notice that the data that we require is now a list of length 5
+    stat = extract_contents(row.find_all('td')) # find all data cells 
     if len(stat) == 5: 
         stats.append(stat)
 
@@ -30,7 +26,7 @@ for row in all_rows:
 new_cols = ["Sr.No", "States/UT","Confirmed","Recovered","Deceased"]
 state_data = pd.DataFrame(data = stats, columns = new_cols)
 
-# converting the 'string' data to 'int'
+# converting 'int'
 state_data['Confirmed'] = state_data['Confirmed'].map(int)
 state_data['Recovered'] = state_data['Recovered'].map(int)
 state_data['Deceased']  = state_data['Deceased'].map(int)
@@ -41,9 +37,9 @@ table.field_names = (new_cols)
 for i in stats:
     table.add_row(i)
 table.add_row(["","Total", sum(state_data['Confirmed']), sum(state_data['Recovered']), sum(state_data['Deceased'])])
-print(table)
+print(table)    #prints in console, not in application
 
-# barplot to show total confirmed cases Statewise 
+# bar-graph to show total confirmed cases Statewise 
 sns.set_style("ticks")
 plt.figure(figsize = (15,10))
 plt.barh(state_data["States/UT"], state_data["Confirmed"].map(int), align = 'center', color = 'lightblue', edgecolor = 'blue')
@@ -51,12 +47,12 @@ plt.xlabel('No. of Confirmed cases', fontsize = 16)
 plt.ylabel('States/UT', fontsize = 16)
 
 plt.gca().invert_yaxis() # this is to maintain the order in which the states appear
-plt.xticks(fontsize = 14) 
-plt.yticks(fontsize = 14)
-plt.title('Total Confirmed Cases Statewise', fontsize = 20)
+plt.xticks(fontsize = 12) 
+plt.yticks(fontsize = 12)
+plt.title('Total Confirmed Cases Statewise', fontsize = 18)
 
 for index, value in enumerate(state_data["Confirmed"]):
-    plt.text(value, index, str(value), fontsize = 12, verticalalignment = 'center')
+    plt.text(value, index, str(value), fontsize = 10, verticalalignment = 'center')
 plt.show()  #comment to hide the bar-graph
 
 # pie-chart representing nationwide total confirmed, cured and deceased cases
