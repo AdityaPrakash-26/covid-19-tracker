@@ -48,8 +48,9 @@ print(table)
 sns.set_style("ticks")
 plt.figure(figsize = (15,10))
 plt.barh(state_data["States/UT"], state_data["Confirmed"].map(int), align = 'center', color = 'lightblue', edgecolor = 'blue')
-plt.xlabel('No. of Confirmed cases', fontsize = 18)
-plt.ylabel('States/UT', fontsize = 18)
+plt.xlabel('No. of Confirmed cases', fontsize = 16)
+plt.ylabel('States/UT', fontsize = 16)
+
 plt.gca().invert_yaxis() # this is to maintain the order in which the states appear
 plt.xticks(fontsize = 14) 
 plt.yticks(fontsize = 14)
@@ -57,9 +58,9 @@ plt.title('Total Confirmed Cases Statewise', fontsize = 20)
 
 for index, value in enumerate(state_data["Confirmed"]):
     plt.text(value, index, str(value), fontsize = 12, verticalalignment = 'center')
-plt.show()  
+plt.show()  #comment to hide the bar-graph
 
-# donut chart representing nationwide total confirmed, cured and deceased cases
+# pie-chart representing nationwide total confirmed, cured and deceased cases
 group_size = [sum(state_data['Confirmed']), sum(state_data['Recovered']), sum(state_data['Deceased'])]
 
 group_labels = ['Confirmed\n' + str(sum(state_data['Confirmed'])), 'Recovered\n' + str(sum(state_data['Recovered'])), 'Deceased\n'  + str(sum(state_data['Deceased']))]
@@ -72,7 +73,7 @@ fig = plt.gcf()
 fig.gca().add_artist(central_circle)
 plt.rc('font', size = 12) 
 plt.title('Nationwide total Confirmed, Recovered and Deceased Cases', fontsize = 16)
-plt.show()
+plt.show() #comment to hide the pie-chart
 
 # read the state wise shapefile of India in a GeoDataFrame and preview it
 map_data = gpd.read_file('Indian_States.shp')
@@ -95,6 +96,7 @@ merged_data.head()
 fig, ax = plt.subplots(1, figsize=(20, 12))
 ax.axis('off')
 ax.set_title('Covid-19 Statewise Data - Confirmed Cases', fontdict = {'fontsize': '25', 'fontweight' : '3'})
+
 # plot the figure
 merged_data.plot(column = 'Confirmed', cmap='YlOrRd', linewidth=0.8, ax=ax, edgecolor='0.8', legend = True)
 plt.show()
