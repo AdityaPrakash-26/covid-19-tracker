@@ -1,4 +1,6 @@
-# covid-19-tracker
+# Covid-19-Tracker
+
+Note: This repository has been archived due to changes to the MoHFW's website.
 
 This CLI application scrapes COVID-19 data from the [Ministry of Health and Family Welfare](https://www.mohfw.gov.in/) website and converts it into a bar-graph, pie-chart, and a heatmap.
 
